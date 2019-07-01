@@ -34,6 +34,12 @@ prefs["dataset_train"] = "fnet.data.HPAOnlineDataset"
 prefs["dataset_train_kwargs"] = {}
 prefs["dataset_val"] = "fnet.data.HPAOnlineDataset"
 prefs["dataset_val_kwargs"] = {}
+prefs["bpds_kwargs"] = {"patch_shape": [
+    1,
+    16,
+    16
+]}
+
 
 # This Fnet call will be updated as a python API becomes available
 
