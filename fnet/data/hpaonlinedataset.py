@@ -67,8 +67,6 @@ class HPAOnlineDataset(FnetDataset):
 
         im_out = [torch.from_numpy(im.astype(float)).float() for im in im_out]
 
-        # unsqueeze to make the first dimension be the channel dimension
-        im_out = [torch.unsqueeze(im, 0) for im in im_out]
         if has_target:
             return torch.stack(im_out[: offset]), torch.stack(im_out[offset:])
         else:
