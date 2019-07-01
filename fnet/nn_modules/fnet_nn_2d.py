@@ -6,6 +6,8 @@ class Net(torch.nn.Module):
         super().__init__()
         mult_chan = 32
         depth = 4
+        self.in_channels = in_channels
+        self.out_channels = out_channels
         self.net_recurse = _Net_recurse(
             n_in_channels=in_channels, mult_chan=mult_chan, depth=depth
         )
