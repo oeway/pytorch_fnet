@@ -31,9 +31,9 @@ prefs["n_iter"] = 50000  # takes about 16 hours, go up to 250,000 for full train
 prefs["interval_checkpoint"] = 10000
 
 prefs["dataset_train"] = "fnet.data.HPAOnlineDataset"
-prefs["dataset_train_kwargs"] = {}
+prefs["dataset_train_kwargs"] = {'is_train': True}
 prefs["dataset_val"] = "fnet.data.HPAOnlineDataset"
-prefs["dataset_val_kwargs"] = {}
+prefs["dataset_val_kwargs"] = {'is_train': False}
 prefs["bpds_kwargs"] = {"patch_shape": [
     128,
     128

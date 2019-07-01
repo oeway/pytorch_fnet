@@ -17,14 +17,24 @@ class HPAOnlineDataset(FnetDataset):
     """
 
     def __init__(self, path_csv: str = None,
+                 is_train=True,
+                 train_split=0.9,
                  channel_signal=None,
                  channel_target=None,
                  transform_signal=None,
                  transform_target=None):
         path_csv = path_csv or 'https://dl.dropbox.com/s/k9ekd4ff3fyjbfk/umap_results_fit_all_transform_all_sorted_20190422.csv'
         self.df = pd.read_csv(path_csv)
-        # filter out rows
+        # filter out invalid rows
         self.df = self.df[self.df['id'].str.contains("_")]
+        self.train_split = train_split
+        train_split_count = int(len(self.df)*train_split)
+        self.is_train = is_train
+        if is_train:
+            self.df = self.df[:train_split_count]
+        else:
+            self.df = self.df[train_split_count:]
+        
         super().__init__(self.df, None, transform_signal, transform_target)
 
         self.channel_signal = channel_signal or ['blue', 'red']
@@ -32,6 +42,7 @@ class HPAOnlineDataset(FnetDataset):
         self.index_dict = {'red': 0, 'green': 1, 'blue': 2}
         self.root_url = 'http://v18.proteinatlas.org/images/'
         self.data_dir = './hpav18-data'
+        
         if not os.path.exists(self.data_dir):
             os.makedirs(self.data_dir)
         assert all(i in self.df.columns for i in ['id'])
