@@ -59,8 +59,8 @@ class HPAOnlineDataset(FnetDataset):
                 for i in range(len(self.channel_signal)):
                     im_out[i] = t(im_out[i])
 
+        offset = len(self.channel_signal)
         if has_target and self.transform_target is not None:
-            offset = len(self.channel_signal)
             for t in self.transform_target:
                 for i in range(self.channel_target):
                     im_out[offset+i] = t(im_out[offset+i])
@@ -69,8 +69,10 @@ class HPAOnlineDataset(FnetDataset):
 
         # unsqueeze to make the first dimension be the channel dimension
         im_out = [torch.unsqueeze(im, 0) for im in im_out]
-
-        return tuple(im_out)
+        if has_target:
+            return torch.stack(im_out[: offset]), torch.stack(im_out[offset:])
+        else:
+            return torch.stack(im_out[: offset])
 
     def __len__(self):
         return len(self.df)
