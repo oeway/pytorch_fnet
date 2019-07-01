@@ -41,13 +41,11 @@ prefs["bpds_kwargs"] = {"patch_shape": [
 prefs["fnet_model_kwargs"]  = {
     'criterion_class': 'torch.nn.MSELoss',
     'nn_class': 'fnet.nn_modules.fnet_nn_2d.Net',
+    "nn_kwargs": {
+        'in_channels': 2,
+        'out_channels': 1
+    }
 }
-
-prefs["nn_kwargs"]  = {
-    'in_channels': 2,
-    'out_channels': 1
-}
-
 
 # This Fnet call will be updated as a python API becomes available
 
