@@ -36,8 +36,8 @@ prefs["dataset_val"] = "fnet.data.HPAOnlineDataset"
 prefs["dataset_val_kwargs"] = {}
 prefs["bpds_kwargs"] = {"patch_shape": [
     1,
-    16,
-    16
+    64,
+    64
 ]}
 
 
