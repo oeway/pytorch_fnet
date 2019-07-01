@@ -35,10 +35,13 @@ prefs["dataset_train_kwargs"] = {}
 prefs["dataset_val"] = "fnet.data.HPAOnlineDataset"
 prefs["dataset_val_kwargs"] = {}
 prefs["bpds_kwargs"] = {"patch_shape": [
-    1,
-    64,
-    64
+    128,
+    128
 ]}
+prefs["fnet_model_kwargs"]  = {
+    'criterion_class': 'torch.nn.MSELoss',
+    'nn_class': 'fnet.nn_modules.fnet_nn_2d.Net',
+}
 
 
 # This Fnet call will be updated as a python API becomes available
