@@ -38,7 +38,7 @@ class HPAOnlineDataset(FnetDataset):
 
     def __getitem__(self, index):
         element = self.df.iloc[index, :]
-        has_target = not np.isnan(self.channel_target)
+        has_target = self.channel_target and len(self.channel_target)>0
         img = element['id'].split('_')
         colors = self.channel_signal + self.channel_target
         im_out = []
