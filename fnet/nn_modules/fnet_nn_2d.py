@@ -2,15 +2,15 @@ import torch
 
 
 class Net(torch.nn.Module):
-    def __init__(self):
+    def __init__(self, in_channels=1, out_channels=1,):
         super().__init__()
         mult_chan = 32
         depth = 4
         self.net_recurse = _Net_recurse(
-            n_in_channels=1, mult_chan=mult_chan, depth=depth
+            n_in_channels=in_channels, mult_chan=mult_chan, depth=depth
         )
         self.conv_out = torch.nn.Conv2d(
-            mult_chan, 1, kernel_size=3, padding=1
+            mult_chan, out_channels, kernel_size=3, padding=1
         )
 
     def forward(self, x):
