@@ -27,8 +27,8 @@ class HPAOnlineDataset(FnetDataset):
         self.df = self.df[self.df['id'].str.contains("_")]
         super().__init__(self.df, None, transform_signal, transform_target)
 
-        self.df['channel_signal'] = channel_signal or ['blue', 'red']
-        self.df['channel_target'] = channel_signal or ['green']
+        self.channel_signal = channel_signal or ['blue', 'red']
+        self.channel_target = channel_signal or ['green']
         self.index_dict = {'red': 0, 'green': 1, 'blue': 2}
         self.root_url = 'http://v18.proteinatlas.org/images/'
         self.data_dir = './hpav18-data'
@@ -38,9 +38,9 @@ class HPAOnlineDataset(FnetDataset):
 
     def __getitem__(self, index):
         element = self.df.iloc[index, :]
-        has_target = not np.isnan(element['channel_target'])
+        has_target = not np.isnan(self.channel_target)
         img = element['id'].split('_')
-        colors = element['channel_signal'] + element['channel_target']
+        colors = self.channel_signal + self.channel_target
         im_out = []
         for color in colors:
             img_path = img[0] + '/' + "_".join(img[1:]) + "_" + color + ".jpg"
@@ -56,13 +56,13 @@ class HPAOnlineDataset(FnetDataset):
 
         if self.transform_signal is not None:
             for t in self.transform_signal:
-                for i in range(len(element['channel_signal'])):
+                for i in range(len(self.channel_signal)):
                     im_out[i] = t(im_out[i])
 
         if has_target and self.transform_target is not None:
-            offset = len(element['channel_signal'])
+            offset = len(self.channel_signal)
             for t in self.transform_target:
-                for i in range(element['channel_target']):
+                for i in range(self.channel_target):
                     im_out[offset+i] = t(im_out[offset+i])
 
         im_out = [torch.from_numpy(im.astype(float)).float() for im in im_out]
