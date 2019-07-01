@@ -2,7 +2,7 @@ import torch
 
 
 class Net(torch.nn.Module):
-    def __init__(self, in_channels=1, out_channels=1, mult_chan = 32, depth = 4):
+    def __init__(self, in_channels=2, out_channels=1, mult_chan = 32, depth = 4):
         super().__init__()
         self.mult_chan = mult_chan
         self.depth = depth
