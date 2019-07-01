@@ -2,10 +2,10 @@ import torch
 
 
 class Net(torch.nn.Module):
-    def __init__(self, in_channels=1, out_channels=1,):
+    def __init__(self, in_channels=1, out_channels=1, mult_chan = 32, depth = 4):
         super().__init__()
-        mult_chan = 32
-        depth = 4
+        self.mult_chan = mult_chan
+        self.depth = depth
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.net_recurse = _Net_recurse(
