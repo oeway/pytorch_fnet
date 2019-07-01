@@ -43,6 +43,11 @@ prefs["fnet_model_kwargs"]  = {
     'nn_class': 'fnet.nn_modules.fnet_nn_2d.Net',
 }
 
+prefs["nn_kwargs"]  = {
+    'in_channels': 2,
+    'out_channels': 1
+}
+
 
 # This Fnet call will be updated as a python API becomes available
 
