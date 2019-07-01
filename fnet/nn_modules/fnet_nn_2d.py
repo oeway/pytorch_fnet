@@ -12,7 +12,7 @@ class Net(torch.nn.Module):
             n_in_channels=in_channels, mult_chan=mult_chan, depth=depth
         )
         self.conv_out = torch.nn.Conv2d(
-            mult_chan, out_channels, kernel_size=3, padding=1
+            mult_chan*in_channels, out_channels, kernel_size=3, padding=1
         )
 
     def forward(self, x):
